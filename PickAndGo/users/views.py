@@ -2,8 +2,6 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import CustomUser, Admin, Owner
-from rest_framework import serializers
 from .serializers import CustomUserSerializer, AdminnSerializer, OwnerSerializer, TokenSerializer,ChangePasswordSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
@@ -21,14 +19,18 @@ class SignUpView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         user_type = request.data.get('user_type')
+        # print(user_type,"ssssssssssssssssssssssssssssssssssssssssssss")
 
         
         if user_type == 'admin':
             serializer = AdminnSerializer(data=request.data)
         elif user_type == 'owner':
-            if not request.user.is_authenticated or not request.user.is_staff:
-                return Response({"detail": "Only admins can create owners."}, status=status.HTTP_403_FORBIDDEN)
-            serializer = OwnerSerializer(data=request.data)
+            print(request.user.is_authenticated ,"bddddddddddddd")
+            if  request.user.is_authenticated or  request.user.is_staff:
+
+                # print("dddddddddddd"*10)
+               
+                serializer = OwnerSerializer(data=request.data)
         else:
             serializer = CustomUserSerializer(data=request.data)
 
@@ -53,9 +55,6 @@ class LoginView(generics.GenericAPIView):
         # print("Validated Data:", validated_data)
         return Response(validated_data)
     
-
-
-
 
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class=ChangePasswordSerializer
