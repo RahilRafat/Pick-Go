@@ -23,6 +23,18 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
+<<<<<<< Updated upstream
     path('',include('restaurant.urls')),
+=======
+    path('resturant/',include('restaurant.urls')),
+    path('food/',include('food.urls')),
+    path('size/',include('sizes.urls')),
+    path('users/',include('users.urls')),
+  
+   
+    path('subprice/',include('supreceipt.urls')),
+    path('reciept/',include('totalreceipt.urls')),
+    # path('pickup/',include('pickup.urls'))
+>>>>>>> Stashed changes
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

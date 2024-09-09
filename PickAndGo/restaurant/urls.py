@@ -1,11 +1,16 @@
-# urls.py
-from django.urls import path, include
+
+from django.urls import path ,include
 from rest_framework.routers import DefaultRouter
-from .views import RestaurantViewSet
+from .views import resturantviewset
 
-router = DefaultRouter()
-router.register(r'restaurants', RestaurantViewSet)
 
-urlpatterns = [
-    path('', include(router.urls)),
+
+# urlpatterns=[
+#     path('createresturant/',resturantviewset.as_view(), name='resturant-create')
+router=DefaultRouter()
+
+router.register(r'resturant',resturantviewset)
+
+urlpatterns=[
+    path('',include(router.urls))
 ]
