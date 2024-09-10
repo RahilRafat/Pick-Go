@@ -16,6 +16,8 @@ venv/
 env/
 .virtualenv/
 
+
+
 # VS Code settings (if using VS Code)
 .vscode/
 
