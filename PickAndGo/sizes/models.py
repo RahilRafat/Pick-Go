@@ -8,7 +8,7 @@ class Size(models.Model):
     size=models.CharField(max_length=30)
     price=models.DecimalField(max_digits=7,decimal_places=2)
     food_fk=models.ForeignKey(Food,on_delete=models.CASCADE)
-    owner_fk=models.ForeignKey(Owner,on_delete=models.CASCADE)
+    owner_fk=models.ForeignKey(Owner,on_delete=models.CASCADE,null=True)
 
 
 
