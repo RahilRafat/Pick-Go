@@ -24,7 +24,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=15)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    is_owner=models.BooleanField(default=False)
+  
     objects = CustomUserManager()  
 
     USERNAME_FIELD = 'username'
@@ -59,16 +60,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 
-class Admin(CustomUser):
-    # is_admin=models.BooleanField(default=True)
-    pass
+# class Admin(CustomUser):
+#     # is_admin=models.BooleanField(default=True)
+#     pass
 
 
 
-class Owner(CustomUser):
+# class Owner(CustomUser):
    
-    admin_fk=models.ForeignKey('users.Admin',on_delete=models.CASCADE,null=False)
-    res_fk=models.ForeignKey(Restaurant,on_delete=models.CASCADE,null=True)
+#     admin_fk=models.ForeignKey('users.Admin',on_delete=models.CASCADE,null=False)
+#     res_fk=models.ForeignKey(Restaurant,on_delete=models.CASCADE,null=True)
     
 
 
