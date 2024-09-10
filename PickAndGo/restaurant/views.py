@@ -7,11 +7,18 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
+from .filters import RestaurantFilter
 
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes=[IsAuthenticated,(IsAdminUser|IsOwnerUser|IsCustomUser)]
+    filter_backends=[DjangoFilterBackend,SearchFilter]
+    filterset_class=RestaurantFilter
+    search_fields=['name']
+
 
     def create(self, request, *args, **kwargs):
         # Use the serializer to validate and create the restaurant instance
