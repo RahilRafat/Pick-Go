@@ -11,18 +11,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from .filters import RestaurantFilter
 
-<<<<<<< HEAD
-# Create your views here.
-from django.shortcuts import render
-from rest_framework import generics ,permissions,status
-from rest_framework.authtoken.models import Token
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.response import Response
-from .models import Restaurant
-from .serializer import resturantserializer
-from rest_framework.views import APIView
-# from .permissions import IsAdminUser
-=======
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
@@ -31,22 +19,8 @@ class RestaurantViewSet(viewsets.ModelViewSet):
     filterset_class=RestaurantFilter
     search_fields=['name']
 
->>>>>>> dev
 
 
-<<<<<<< HEAD
-# Create your views here.
-from rest_framework import viewsets
-
-class resturantviewset(viewsets.ModelViewSet):
-    queryset=Restaurant.objects.all()
-    serializer_class=resturantserializer
-    # permission_classes = [ IsAdminUser]
-
-    def perform_create(self, serializer):
-        # Optionally, you can add extra logic here
-        serializer.save()
-=======
     def perform_create(self, serializer):
         """
         Override perform_create to include custom logic when creating a Restaurant instance.
@@ -102,4 +76,3 @@ class resturantviewset(viewsets.ModelViewSet):
             raise PermissionDenied("You do not have permission to delete this restaurant.")
         
         instance.delete()
->>>>>>> dev
