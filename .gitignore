@@ -1,7 +1,7 @@
 # Python bytecode files
 *.pyc
 *.pyo
-_pycache_/
+__pycache__
 
 # Django migration files
 /migrations/.pyc
