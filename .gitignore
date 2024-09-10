@@ -1,7 +1,7 @@
 # Python bytecode files
 *.pyc
 *.pyo
-_pycache_/
+__pycache__
 
 # Django migration files
 /migrations/.pyc
@@ -16,6 +16,8 @@ venv/
 env/
 .virtualenv/
 
+
+
 # VS Code settings (if using VS Code)
 .vscode/
 
@@ -28,7 +30,7 @@ env/
 *.pid
 
 # Media files (optional, if you store media in your repo)
-media/
+media/media
 
 # Static files (optional, if you collect static files in your repo)
 staticfiles/

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Admin, Owner
+from .models import CustomUser
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -13,13 +13,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user = CustomUser.objects.create_user(**validated_data)
         return user
 
-class AdminnSerializer(CustomUserSerializer):
-    class Meta(CustomUserSerializer.Meta):
-        model = Admin
+# class AdminnSerializer(CustomUserSerializer):
+#     class Meta(CustomUserSerializer.Meta):
+#         model = Admin
 
-class OwnerSerializer(CustomUserSerializer):
-    class Meta(CustomUserSerializer.Meta):
-        model = Owner
+# class OwnerSerializer(CustomUserSerializer):
+#     class Meta(CustomUserSerializer.Meta):
+#         model = Owner
 
 class TokenSerializer(serializers.Serializer):
     username = serializers.CharField()

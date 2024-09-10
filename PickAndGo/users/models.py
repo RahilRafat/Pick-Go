@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from restaurant.models import Restaurant
+from django.contrib.auth.hashers import make_password
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, phone, password=None, **extra_fields):
@@ -23,15 +24,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=15)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_owner=models.BooleanField(default=False)
+  
+    objects = CustomUserManager()  
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'phone']
 
-    objects = CustomUserManager()
-
-    def __str__(self):
-        return self.username
-    
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+        self.save()
 
 
     class Meta:
@@ -58,16 +60,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 
-class Admin(CustomUser):
-    # is_admin=models.BooleanField(default=True)
-    pass
+# class Admin(CustomUser):
+#     # is_admin=models.BooleanField(default=True)
+#     pass
 
 
 
-class Owner(CustomUser):
+# class Owner(CustomUser):
    
-    admin_fk=models.ForeignKey('users.Admin',on_delete=models.CASCADE,null=False)
-    res_fk=models.ForeignKey(Restaurant,on_delete=models.CASCADE,null=True)
+#     admin_fk=models.ForeignKey('users.Admin',on_delete=models.CASCADE,null=False)
+#     res_fk=models.ForeignKey(Restaurant,on_delete=models.CASCADE,null=True)
     
 
 
