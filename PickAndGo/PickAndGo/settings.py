@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-ixh@#ex&vmm541v07^%hp&765iiu=3+@56e*eb7k+3hur9u(%_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] 
+
+
 
 
 # Application definition
@@ -47,11 +49,12 @@ INSTALLED_APPS = [
     'food',
     'sizes',
     'supreceipt',
+    'drf_yasg',  
     'totalreceipt',
     'pickup',
 ]
-
-
+TIME_ZONE = 'America/New_York'
+USE_TZ = False
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

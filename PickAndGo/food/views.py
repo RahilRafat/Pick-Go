@@ -16,3 +16,5 @@ from rest_framework import viewsets
 class foodviewset(viewsets.ModelViewSet):
     queryset=Food.objects.all()
     serializer_class=foodserializer
+
+    

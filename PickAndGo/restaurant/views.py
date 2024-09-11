@@ -57,9 +57,9 @@ class RestaurantViewSet(viewsets.ModelViewSet):
         user = self.request.user
         
         # # Log user details for debugging
-        print(f"User: {user.username}, User ID: {user.id}, User Type: {'owner' if user.is_owner else 'Regular User'}")
-        print(f"Request Method: {self.request.method}")
-        print(f"Request Data: {self.request.data}")
+        # print(f"User: {user.username}, User ID: {user.id}, User Type: {'owner' if user.is_owner else 'Regular User'}")
+        # print(f"Request Method: {self.request.method}")
+        # print(f"Request Data: {self.request.data}")
 
         # # Save the new instance with the current user as admin_fk
         serializer.save(owner_fk=user)

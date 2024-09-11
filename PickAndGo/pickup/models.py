@@ -9,7 +9,10 @@ class PickUp(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('ready', 'Ready'),
+        ('confirmed', 'confirmed'),
     ]
 
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='pending')
-    time=models.TimeField()
+    time=models.DateTimeField(null=True,blank=True)
+
+    confirmation=models.BooleanField(default=False)
