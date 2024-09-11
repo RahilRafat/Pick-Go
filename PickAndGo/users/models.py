@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from restaurant.models import Restaurant
-from django.contrib.auth.hashers import make_password
+# from restaurant.models import Restaurant
+# from django.contrib.auth.hashers import make_password
+# from totalreceipt.models import TotalReciept
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, phone, password=None, **extra_fields):
@@ -31,9 +32,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'phone']
 
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
-        self.save()
+   
 
 
     class Meta:

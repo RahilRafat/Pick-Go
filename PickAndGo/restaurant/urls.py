@@ -1,7 +1,7 @@
 
 from django.urls import path ,include
 from rest_framework.routers import DefaultRouter
-from .views import resturantviewset
+from .views import RestaurantViewSet
 
 
 
@@ -9,7 +9,7 @@ from .views import resturantviewset
 #     path('createresturant/',resturantviewset.as_view(), name='resturant-create')
 router=DefaultRouter()
 
-router.register(r'resturant',resturantviewset)
+router.register(r'resturant',RestaurantViewSet)
 
 urlpatterns=[
     path('',include(router.urls))

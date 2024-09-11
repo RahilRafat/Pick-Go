@@ -22,3 +22,4 @@ class RecieptSerializer(serializers.ModelSerializer):
             sub = Supreceipt.objects.create(total_reciet_fk=Reciept_instance, **item_data)
         
         return Reciept_instance
+    # def histroy(self ,validate_data,request):
