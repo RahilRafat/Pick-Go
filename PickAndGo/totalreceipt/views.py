@@ -11,19 +11,27 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 from rest_framework import viewsets
 from restaurant.models import Restaurant
+from supreceipt.serializer import SubPriceSerializer
 
 class RecieptViewSet(viewsets.ModelViewSet):
     queryset=TotalReciept.objects.all()
     serializer_class=RecieptSerializer
+    permission_classes = [IsAuthenticated]
 
     def create(self , request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+
+        user=request.user
+        receipt_instance = serializer.save(user_fk=user)
         subserializer=RecieptSerializer (data =self.request.data)
         subserializer
         subserializer.is_valid(raise_exception= True)
         usser = CustomUser.objects.get(username = request.user)
         roral_reciept = subserializer.save(user_fk =usser)
    
-        subreciet=Supreceipt.objects.filter(total_reciet_fk=roral_reciept.id)
+        subreciet=Supreceipt.objects.filter(total_reciet_fk=receipt_instance)
         # print(type(subreciet))
         # for item in subserializer:
         #      roral_reciept.total_receipt += item.total_receipt 
@@ -75,6 +83,21 @@ class UserOrderListView(generics.ListAPIView):
     def get_queryset(self):
         user=self.request.user
         return TotalReciept.objects.filter(user_fk=user)
+    
+
+
+
+
+class UserOrderHistoryView(generics.ListAPIView):
+    serializer_class = SubPriceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        # Fetch all TotalReceipts for the user
+        total_receipts = TotalReciept.objects.filter(user_fk=user)
+        # Fetch all Supreceipts related to these TotalReceipts
+        return Supreceipt.objects.filter(total_reciet_fk__in=total_receipts)
                     
                     
                     

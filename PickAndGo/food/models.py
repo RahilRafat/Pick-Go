@@ -1,5 +1,6 @@
 from django.db import models
 from restaurant.models import Restaurant 
+# from sizes.models import Size
 
 # Create your models here.
 class Food (models.Model):
@@ -11,5 +12,10 @@ class Food (models.Model):
 
      class Meta:
         ordering = ['name']
+   #   def get_sizes(self):
+   #      """
+   #      Get all sizes related to this food instance.
+   #      """
+   #      return Size.objects.filter(food_fk=self)   
 
 

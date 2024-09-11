@@ -1,6 +1,7 @@
 from django.urls import path ,include
 from rest_framework.routers import DefaultRouter
 from .views import RecieptViewSet,UserOrderListView
+from .views import UserOrderHistoryView
 
 
 router=DefaultRouter()
@@ -11,4 +12,6 @@ urlpatterns=[
 
 
     path('user/orders/', UserOrderListView.as_view(), name='user-orders-list'),
+    path('api/order-history/', UserOrderHistoryView.as_view(), name='user_order_history'),
+
 ]

@@ -8,8 +8,11 @@ from .serializer import foodserializer
 from rest_framework.views import APIView
 
 # Create your views here.
-from rest_framework import viewsets
+from rest_framework import viewsets,status
+from rest_framework.response import Response
 
 class foodviewset(viewsets.ModelViewSet):
     queryset=Food.objects.all()
     serializer_class=foodserializer
+
+    
