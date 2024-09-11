@@ -131,7 +131,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME':'PickAndGo',
         'USER':'postgres',
-        'PASSWORD':'newpassword',
+        'PASSWORD':'123456',
         'HOST':'localhost',
         'PORT':'5432',
     }
