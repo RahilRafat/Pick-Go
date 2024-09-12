@@ -8,23 +8,26 @@ from users.models import CustomUser
 from supreceipt.models import Supreceipt
 from supreceipt.serializer import SubPriceSerializer
 from rest_framework.permissions import IsAuthenticated
-# Create your views here.
 from rest_framework import viewsets
 from restaurant.models import Restaurant
 from supreceipt.serializer import SubPriceSerializer
+from .permissions import IsUser
 
 class RecieptViewSet(viewsets.ModelViewSet):
     queryset=TotalReciept.objects.all()
     serializer_class=RecieptSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsUser]
 
-    def create(self , request):
-        serializer = self.get_serializer(data=request.data)
+    def create(self , request,*args,**kwargs):
+
+        data=request.data
+        data['user_fk']= request.user.id
+      
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
 
 
-        user=request.user
-        receipt_instance = serializer.save(user_fk=user)
+        receipt_instance = serializer.save(user_fk=request.user)
         subserializer=RecieptSerializer (data =self.request.data)
         subserializer
         subserializer.is_valid(raise_exception= True)
@@ -32,33 +35,19 @@ class RecieptViewSet(viewsets.ModelViewSet):
         roral_reciept = subserializer.save(user_fk =usser)
    
         subreciet=Supreceipt.objects.filter(total_reciet_fk=receipt_instance)
-        # print(type(subreciet))
-        # for item in subserializer:
-        #      roral_reciept.total_receipt += item.total_receipt 
-        # return Response( roral_reciept.total_receipt)
-
-
-        # return Response(subserializer.data)
+      
         total_amount = 0
         for subreceipt in subreciet:
             total_amount += subreceipt.totalsupprice
 
-        # Update the TotalReciept's total_receipt field with the calculated amount
         roral_reciept.total_receipt = total_amount
         roral_reciept.save()
 
-        # Return the updated data
+        
         usser = request.user
         restaurant = roral_reciept.res_fk
        
-        # return Response({
-        #     'order_id': roral_reciept.id,
-        #     'total_receipt': roral_reciept.total_receipt,
-        #     'detail': 'Receipt created and total updated.',
-        #     'username':usser.username,
-        #     # 'restaurant_name': restaurant.name
-            
-        # })
+     
         response_data = {
         'order_id': roral_reciept.id,
         'total_receipt': roral_reciept.total_receipt,
@@ -94,22 +83,15 @@ class UserOrderHistoryView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        # Fetch all TotalReceipts for the user
+       
         total_receipts = TotalReciept.objects.filter(user_fk=user)
-        # Fetch all Supreceipts related to these TotalReceipts
+        
         return Supreceipt.objects.filter(total_reciet_fk__in=total_receipts)
                     
                     
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
                     
                     
                     
